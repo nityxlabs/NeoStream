@@ -1,1 +1,0 @@
-row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
