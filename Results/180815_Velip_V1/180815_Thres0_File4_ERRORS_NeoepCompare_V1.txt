@@ -1,4 +1,0 @@
-row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
-32	SEPP1	ENST00000514985	H/Y | H/Y	Cat/Tat | Cat/Tat	PRS	PRS	0
-32	SEPP1	ENST00000514985	H/Y | H/Y	Cat/Tat | Cat/Tat	PRS	PRS	0
-32	SEPP1	ENST00000514985	H/Y | H/Y	Cat/Tat | Cat/Tat	PRS	PRS	0
