@@ -20,7 +20,7 @@ In order to run NeoStream, the following libraries will also need to be installe
 To begin using NeoStream, clone this Github repository to your computer.
 
 ```
-clone https://github.com/nityxlabs/NeoStream.git
+git clone https://github.com/nityxlabs/NeoStream.git
 ```
 
 The directory structure should be as follows:
