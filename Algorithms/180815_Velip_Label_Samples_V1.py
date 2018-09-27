@@ -94,7 +94,8 @@ def retrieve_condition_id_express( str_cond ):
 
 # print "------------ Algorithm: 180224_AntiPD1_Label_Samples_V2.py ------------"
 # print "------------ Algorithm: 180325_AntiPD1_Label_Samples_V3.py ------------"
-print "------------ Algorithm: 180411_Velip_Label_Samples_V1.py ------------"
+# print "------------ Algorithm: 180411_Velip_Label_Samples_V1.py ------------"
+print "------------ Algorithm: 180815_Velip_Label_Samples_V1.py ------------"
 """
 This algorithm will label patients with the correct response type - ["Progressive Disease", "Partial Response", "Complete Response"]
 -NOTE: This is the same as 180224_AntiPD1_Label_Samples_V2.py, but also assigns a specific neoepitope to mutation so I only count 1 neoepitope per mutation. I assign neoepitope with highest predicted HLA affinity to given mutatin
@@ -110,7 +111,8 @@ df_express = pd.read_csv( path_file_express, sep = '\t')
 # df_express = df_express.set_index('GeneName')     #perhaps hold off on make the gene symbol the index
 
 date_input = sys.argv[1]
-# file_num = int( sys.argv[2] )
+output_dir = sys.argv[2]
+# file_num = int( sys.argv[3] )
 list_file_nums = [1,2,3,4,5]
 
 
@@ -122,7 +124,8 @@ for file_num in list_file_nums:
     # path_write = DIR_RESULT_ANTIPD1 + "/180225_Thres0_SampAllExpress_NeoepCompare_irRECIST_V2.txt"
     # path_write = DIR_RESULT_ANTIPD1 + "/180325_Thres0_SampAllExpress_NeoepCompare_irRECIST_V3.txt"
     # path_write = DIR_RESULTS_FOLDER + "/180411_Thres0_File" + str(file_num) + "_NeoepCompare_V1_Extended.txt"       #NOTE: for directory "/180403_Velip_V2"
-    path_write = DIR_RESULTS_FOLDER + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1_Extended.txt"       #NOTE: for directory "/180531_Velip_V3"
+    # path_write = DIR_RESULTS_FOLDER + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1_Extended.txt"       #NOTE: for directory "/180531_Velip_V3"
+    path_write = output_dir + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1_Extended.txt"       #NOTE: for directory "/180531_Velip_V3"
     file_write = open( path_write, 'w' )
 
 
@@ -130,7 +133,8 @@ for file_num in list_file_nums:
     ##ACTUAL FILE
     # path_read_actual = DIR_RESULT_ANTIPD1 + "/180130_Thres0_SampAllExpress_NeoepCompare_V1.txt"
     # path_read_actual = DIR_RESULTS_FOLDER + "/180403_Thres0_File" + str(file_num) + "_NeoepCompare_V1.txt"  #NOTE: for directory "/180403_Velip_V2"
-    path_read_actual = DIR_RESULTS_FOLDER + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1.txt"  #NOTE: for directory ""/180531_Velip_V3"
+    # path_read_actual = DIR_RESULTS_FOLDER + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1.txt"  #NOTE: for directory ""/180531_Velip_V3"
+    path_read_actual = output_dir + "/" + date_input + "_Thres0_File" + str(file_num) + "_NeoepCompare_V1.txt"  #NOTE: for directory ""/180531_Velip_V3"
     df = pd.read_csv( path_read_actual, sep = '\t' )
     ##TEST FILE
     # df = pd.read_csv( path_read_actual, sep = '\t', nrows = 200 )

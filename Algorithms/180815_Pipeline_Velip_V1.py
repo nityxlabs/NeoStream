@@ -209,7 +209,7 @@ for select_file in range( file_range_1, file_range_2 + 1 ):
         #Step 2B - need to label the neoepitope data with information like ranking neoepitopes per mutation based on MHC affinity, patient data, etc.
         # run_alg_2b = "180411_Velip_Label_Samples_V1.py"
         run_alg_2b = "180815_Velip_Label_Samples_V1.py"
-        p2b = os.system( "python " + run_alg_2b + " " + str(select_file) )
+        p2b = os.system( "python " + run_alg_2b + " " + curr_file_name + " " + DIR_RESULTS_FOLDER )
         if p2b != 0:
             status_loop = False
             print "FULL PROGRAM CEASE: Error in Algorithm 2B: " + run_alg_2b

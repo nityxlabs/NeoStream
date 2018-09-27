@@ -1,0 +1,7 @@
+row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
+6	GAST	ENST00000329402	R/* | R/*	Cga/Tga | Cga/Tga	MQ	MQ	0
+6	GAST	ENST00000329402	R/* | R/*	Cga/Tga | Cga/Tga	MQ	MQ	0
+6	GAST	ENST00000329402	R/* | R/*	Cga/Tga | Cga/Tga	MQ	MQ	0
+row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
+row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
+row	gene_id	transcript_id	compare_codon	compare_aa	neoep_orig	neoep_alt	req_stat
