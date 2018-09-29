@@ -32,6 +32,8 @@ The directory structure should be as follows:
 /Results
 ```
 
+The hg19.fa build should be located in the /Genome directory.
+
 ## Deployment
 
 To execute NeoStream, perform the following procedure:
