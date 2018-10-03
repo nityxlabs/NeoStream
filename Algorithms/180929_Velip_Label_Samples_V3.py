@@ -1,4 +1,5 @@
 #/usr/bin/python
+import os
 import sys
 import time
 
@@ -8,24 +9,15 @@ import scipy
 from scipy import stats
 
 # sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/PythonClasses" )
-sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/180815_NeoStream/Algorithms" )
+sys.path.insert( 0, "../Algorithms" )
 from mokhaPy import mokhaPy
 
 #Constants - directories
-DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
+# DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
 # DIR_CURR = DIR_PROJ + "/180203_GenomAltToNeoepV3"
-DIR_CURR = DIR_PROJ + "/180815_NeoStream"
-DIR_DATA = DIR_CURR + "/Data"
-DIR_RESULTS = DIR_CURR + "/Results"
-# DIR_RESULTS_FOLDER = DIR_RESULTS + "/171204_NeoepProcess_V15"
-# DIR_RESULTS_FOLDER = DIR_RESULTS + "/180203_Velip_V1"
-# DIR_RESULTS_FOLDER = DIR_RESULTS + "/180403_Velip_V2"
-DIR_RESULTS_FOLDER = DIR_RESULTS + "/180531_Velip_V3"
-
-
-#CONJ: I think this is where Veliparib information is stored
-DIR_VELIP = DIR_PROJ + "/170304_NeoantigenExtract"
-DIR_DATA_VELIP = DIR_VELIP + "/Data/Velip"
+DIR_CURR = "../Algorithms"
+DIR_DATA = "../Data"
+DIR_RESULTS = "../Results"
 
 
 #Constants 
@@ -45,6 +37,10 @@ def percentile_all_genes( df_express ):
     """
     Calculates the percentile expression for the sample
     """
+
+    if df_express == None:
+        return [None, None]
+
     #calculate the percentile expression ]
     # list_express_pc = df_express[EXP_COL_PC].tolist()
     # list_express_br = df_express[EXP_COL_BR].tolist()
@@ -98,28 +94,36 @@ def retrieve_condition_id_express( str_cond ):
 # print "------------ Algorithm: 180325_AntiPD1_Label_Samples_V3.py ------------"
 # print "------------ Algorithm: 180411_Velip_Label_Samples_V1.py ------------"
 # print "------------ Algorithm: 180815_Velip_Label_Samples_V1.py ------------"
-print "------------ Algorithm: 180825_Velip_Label_Samples_V2.py ------------"
+# print "------------ Algorithm: 180825_Velip_Label_Samples_V2.py ------------"
+print "------------ Algorithm: 180929_Velip_Label_Samples_V3.py ------------"
 """
 This algorithm will label patients with the correct response type - ["Progressive Disease", "Partial Response", "Complete Response"]
+-NOTE: This algorithm is the same as 180825_Velip_Label_Samples_V2.py but is designed to be more general as to be applied to a dataset more generally (e.g. no gene expression file)
 -NOTE: This is the same as 180224_AntiPD1_Label_Samples_V2.py, but also assigns a specific neoepitope to mutation so I only count 1 neoepitope per mutation. I assign neoepitope with highest predicted HLA affinity to given mutatin
 -NOTE: this algorithm is similar to "171209_NeoantigenMHC_AppendInfo.py" in terms of appending new information to a file, however I like the approach applied to this file better.
 """
 
 start_time = time.time()
 
+##BE OPEN TO ACCEPTING GENE EXPRESSION DATA
 # path_file_express = DIR_DATA_VELIP + "/170712_Velip_GeneCount.txt"
 # path_file_express = DIR_DATA_VELIP + "/170724_Velip_GeneCount.txt"
-path_file_express = DIR_DATA_VELIP + "/180711_Velip_GeneCount.txt"
-df_express = pd.read_csv( path_file_express, sep = '\t')
+# path_file_express = DIR_DATA_VELIP + "/180711_Velip_GeneCount.txt"
+# df_express = pd.read_csv( path_file_express, sep = '\t')
 # df_express = df_express.set_index('GeneName')     #perhaps hold off on make the gene symbol the index
+
+df_express = None               #this is the default for gene expression as of now as I am not expecting gene expression
 
 input_filename = sys.argv[1]
 output_dir = sys.argv[2]
-# file_num = int( sys.argv[3] )
-list_file_nums = [1,2,3,4,5]
+
+for ( dirpath, dirnames, filenames ) in os.walk( DIR_RESULTS ):
+    break
+#filter files of interest
+all_files_oi = [x for x in filenames if input_filename in x and "_NeoepCompare_" in x]
 
 
-for file_num in list_file_nums:
+for file_num in all_files_oi:
     HEADFILE_STAT = True        #NOTE: Only place "HEADFILE_STAT" here for loops
 
     # path_write = DIR_RESULT_ANTIPD1 + "/180130_Thres0_SampAllExpress_NeoepCompare_irRECIST_V1.txt"
@@ -192,7 +196,7 @@ for file_num in list_file_nums:
         #retrieve the gene expression
         gene_sym = row['gene_symbol']
         express_cond_id = retrieve_condition_id_express( row['case_id'] )
-        if express_cond_id:
+        if express_cond_id and df_express != None:
             find_express_count = df_express[df_express['GeneName'] == gene_sym]
 
 
@@ -277,5 +281,6 @@ mokhaPy.timeElapse_convertToHMS( elapse_time )
 # print "------------ Algorithm Completed: 180224_AntiPD1_Label_Samples_V2.py ------------"
 # print "------------ Algorithm Completed: 180325_AntiPD1_Label_Samples_V3.py ------------"
 # print "------------ Algorithm Completed: 180815_Velip_Label_Samples_V1.py ------------"
-print "------------ Algorithm Completed: 180825_Velip_Label_Samples_V2.py ------------"
+# print "------------ Algorithm Completed: 180825_Velip_Label_Samples_V2.py ------------"
+print "------------ Algorithm Completed: 180929_Velip_Label_Samples_V3.py ------------"
 

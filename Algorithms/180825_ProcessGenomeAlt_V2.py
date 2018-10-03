@@ -10,23 +10,23 @@ import numpy as np
 from cruzdb import Genome
 
 # sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/PythonClasses" )
-sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/180815_NeoStream/Algorithms" )
+sys.path.insert( 0, "../Algorithms" )
 from SVSv7 import Isoform, EnsemblVEP, SimpleNeoepitopeAllV2, SimpleNeoepitopeIsoformV2, TranscribeTranscript, TranslateTranscript
 from mokhaPy import mokhaPy
 
 #Constants - directories
-DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
+# DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
 # DIR_CURR = DIR_PROJ + "/180203_GenomAltToNeoepV3"
-DIR_CURR = DIR_PROJ + "/180815_NeoStream"
-DIR_DATA = DIR_CURR + "/Data"
-DIR_RESULTS = DIR_CURR + "/Results"
+DIR_CURR = "../Algorithms"
+DIR_DATA = "../Data"
+DIR_RESULTS = "../Results"
 
-DIR_DATA_VELIP = DIR_PROJ + "/170304_NeoantigenExtract/Data/Velip"
+# DIR_DATA_VELIP = DIR_PROJ + "/170304_NeoantigenExtract/Data/Velip"
 #get mapped reads
-DIR_RNASEQ = DIR_PROJ + "/150802_TophatSamples"
+# DIR_RNASEQ = DIR_PROJ + "/150802_TophatSamples"
 #Constants - gene expression
-DIR_EXPRESSION = DIR_PROJ + "/161001_SJExonDiff/Results"
-DIR_GENOME = DIR_PROJ + '/ArchiveData/hg19.fa'      #directory for samtool-indexed genome
+# DIR_EXPRESSION = DIR_PROJ + "/161001_SJExonDiff/Results"
+DIR_GENOME = "../Genome/hg19.fa"      #directory for samtool-indexed genome
 
 #Constants - values for algorithm
 SEC_BREAK = 2       #number of seconds to take break
@@ -34,7 +34,7 @@ AA_LEN = 9          #number of amino acids to retrieve around an altered AA
 
 
 #Columns for Veliparib dataset
-COL_GENE_SYM ='Hugo_Symbol'
+COL_GENE_SYM = 'Hugo_Symbol'
 
 #Columns for Anti-PD1 dataset
 # COL_GENE_SYM ='gene_symbol'
@@ -533,9 +533,9 @@ i_counter = -1      #this counter is for determining when to take a break from m
 for i, (i_row, row) in enumerate( df_muts.iterrows() ):
     i_counter += 1
 
-    # ##TEST::
-    # if i > 30:
-    #     break
+    ##TEST::
+    if i > 30:
+        break
     ##TEST:: to make the script faster
     # if i < 11:
     #     continue

@@ -5,24 +5,25 @@ import time
 import pandas as pd
 
 # sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/PythonClasses" )
-sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/180815_NeoStream/Algorithms" )
+# sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/180815_NeoStream/Algorithms" )
+sys.path.insert( 0, "../Algorithms" )
 from SVSv7 import NeoepitopeMHC, MHC_IEDB_V2
 from mokhaPy import mokhaPy
 
-#Constants - directories
-DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
-DIR_CURR = DIR_PROJ + "/180203_GenomAltToNeoepV3"
-DIR_DATA = DIR_CURR + "/Data"
-DIR_RESULTS = DIR_CURR + "/Results"
 
-DIR_TAP_PROT = DIR_PROJ + "/180101_ValidateIEDB"
-DIR_TAP_PROT_DATA = DIR_TAP_PROT + "/Data"
-DIR_TAP_PROT_FILE = DIR_TAP_PROT_DATA + "/180106_Proteasome_TAP_Chart.txt"
+#Constants - directories
+# DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
+DIR_CURR = "../Algorithms"
+DIR_DATA =  "../Data"
+DIR_RESULTS = "../Results"
+
+DIR_TAP_PROT_FILE = DIR_DATA + "/180106_Proteasome_TAP_Chart.txt"
 
 SEC_BREAK = 5       #number of seconds to take break
 #these are the constants for checking if a file has a header recorded for it
 HEADFILE_RANK = True
 HEADFILE_COMPARE = True
+
 
 def neoep_rank_sort( df_neoep ):
     """

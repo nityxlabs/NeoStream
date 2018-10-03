@@ -4,15 +4,16 @@ import sys
 import subprocess
 import time
 
+
 # sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/PythonClasses" )
-sys.path.insert( 0, "/home/mokha/Documents/Krauthammer_Lab/180815_NeoStream/Algorithms" )
+sys.path.insert( 0, "../Algorithms" )
 from mokhaPy import mokhaPy
 
 #Constants - directories
-DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
-DIR_CURR = DIR_PROJ + "/180815_NeoStream"
-DIR_DATA = DIR_CURR + "/Data"
-DIR_RESULTS = DIR_CURR + "/Results"
+# DIR_PROJ = "/home/mokha/Documents/Krauthammer_Lab"
+DIR_CURR = "../Algorithms"
+DIR_DATA =  "../Data"
+DIR_RESULTS = "../Results"
 # DIR_RESULTS_FOLDER = DIR_RESULTS + "/171204_NeoepProcess_V15"
 # DIR_RESULTS_FOLDER = DIR_RESULTS + "/180203_Velip_V1"
 # DIR_RESULTS_FOLDER = DIR_RESULTS + "/180403_Velip_V2"
@@ -93,7 +94,8 @@ if p2 != 0:
 #Step 2B - need to label the neoepitope data with information like ranking neoepitopes per mutation based on MHC affinity, patient data, etc.
 # run_alg_2b = "180411_Velip_Label_Samples_V1.py"
 # run_alg_2b = "180815_Velip_Label_Samples_V1.py"
-run_alg_2b = "180825_Velip_Label_Samples_V2.py"
+# run_alg_2b = "180825_Velip_Label_Samples_V2.py"
+run_alg_2b = "180929_Velip_Label_Samples_V3.py"
 p2b = os.system( "python " + run_alg_2b + " " + curr_file_name + " " + DIR_RESULTS_FOLDER )
 if p2b != 0:
     status_loop = False
