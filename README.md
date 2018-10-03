@@ -28,7 +28,7 @@ The directory structure should be as follows:
 ```
 /Algorithm
 /Data - contains file for neoepitope comparison 180106_Proteasome_TAP_Chart.txt
-/Genome - contains hg19.fa genome build file
+/Genome - contains hg19.fa & hg19.fa.fai (samtools-indexed) genome build file
 /Results
 ```
 
