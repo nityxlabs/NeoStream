@@ -27,9 +27,12 @@ The directory structure should be as follows:
 
 ```
 /Algorithm
-/Data
+/Data - contains file for neoepitope comparison 180106_Proteasome_TAP_Chart.txt
+/Genome - contains hg19.fa genome build file
 /Results
 ```
+
+The hg19.fa build should be located in the /Genome directory.
 
 ## Deployment
 
