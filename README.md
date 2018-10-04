@@ -8,6 +8,7 @@ The following
 ### Prequisites 
 
 In order to run NeoStream, the following libraries will also need to be installed:
+* cruzdb (https://github.com/brentp/cruzdb)
 * HTSeq (https://htseq.readthedocs.io/en/release_0.10.0/)
 * Tabix (https://pypi.org/project/pytabix/)
 * requests
@@ -32,7 +33,12 @@ The directory structure should be as follows:
 /Results
 ```
 
-The hg19.fa build should be located in the /Genome directory.
+The hg19.fa build and hg19.fa.fai (samtools-indexed) files should be located in the /Genome directory. To create the samtools
+
+Next, run the following script to set up local genomic databases
+```
+python setup_cruzdb_databases.py
+```
 
 ## Deployment
 
