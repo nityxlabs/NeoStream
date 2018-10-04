@@ -35,7 +35,7 @@ The directory structure should be as follows:
 
 The hg19.fa build and hg19.fa.fai (samtools-indexed) files should be located in the /Genome directory. To create the samtools
 
-Next, run the following script to set up local genomic databases
+Next, run the following script to set up local genomic databases.
 ```
 python setup_cruzdb_databases.py
 ```
