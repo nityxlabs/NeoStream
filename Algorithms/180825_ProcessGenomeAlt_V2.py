@@ -282,6 +282,9 @@ is_seq_WGS = sys.argv[5]
 
 df_muts_orig = pd.read_csv( path_velip_file, skiprows = 1, sep = '\t' )
 
+# ##TEST:: show data types of columns
+# print "column data types: ", df_muts_orig.dtypes
+
 
 # ##NS MODIFY - NEED TO REMOVE THIS....
 # #Filter 1: extract specific mutations, in this case "somatic" mutations - I want to exclude the "Germline" mutations as I want to see "Somatic mutations" arise from the treatment conditions (e.g. somatic mutations from Veliparib drug, pc vector that doesn't contain rescue BRCA1, br vector that does contain rescue BRCA1)
@@ -293,13 +296,13 @@ df_muts_orig = pd.read_csv( path_velip_file, skiprows = 1, sep = '\t' )
 print "FILTER: mutations after somatic filter = ", len( df_muts_orig )
 
 
-#Filter 2: conveys how often the mutated allele is observed betweent he tumor & the normal tissue. The lower the "n_alt_count", the less frequently the mutation is observed in normal and the more frequently it is observed in tumor
-df_muts_orig = df_muts_orig[ df_muts_orig['n_alt_count'] < 3 ]
+# #Filter 2: conveys how often the mutated allele is observed betweent he tumor & the normal tissue. The lower the "n_alt_count", the less frequently the mutation is observed in normal and the more frequently it is observed in tumor
+# df_muts_orig = df_muts_orig[ df_muts_orig['n_alt_count'] < 3 ]
 
 
 
-##TEST::
-print "FILTER: mutations after 'n_alt_count' = ", len( df_muts_orig )
+# ##TEST::
+# print "FILTER: mutations after 'n_alt_count' = ", len( df_muts_orig )
 
 
 
@@ -341,7 +344,7 @@ df_muts = format_df_v3( df_muts_orig )
 
 
 ##TEST::
-print "Show column types:"
+print "Show column types - df_muts:"
 print df_muts.dtypes
 
 
@@ -527,15 +530,20 @@ print "\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n\n"
 current_case_id = None
 counter_case_id = 1     #counts the number of case IDs the file has analyzed
 
+
+##TEST::
+print "length of df_muts = ", len( df_muts )
+
+
 total_rows = len( df_muts )
 update = 0
 i_counter = -1      #this counter is for determining when to take a break from making calls to VEP, also this is needed for the "retry_counter"
 for i, (i_row, row) in enumerate( df_muts.iterrows() ):
     i_counter += 1
 
-    ##TEST::
-    if i > 30:
-        break
+    # ##TEST::
+    # if i > 20:
+    #     break
     ##TEST:: to make the script faster
     # if i < 11:
     #     continue
@@ -582,7 +590,6 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
 
     #see if algorithm needs to take a break from making requests - only X requests allowed per second
     take_request_break( i_counter, i, SEC_BREAK )
-
     genome_pos = str(row['Chromosome']) + ':' + str(row['Start_Position']) + '-' + str(row['End_Position'])
     nuc_orig = row['Reference_Allele'] if row['Reference_Allele'] == "-" else None
     alt = row['Tumor_Seq_Allele2']
@@ -590,12 +597,13 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
     # opt_param = "variant_class=1&hgvs=1&refseq=1
     opt_param = "variant_class=1&hgvs=1"
     build_hg38 = False
+
     #determine if I want to only analyze the specific isoform of interest or not
     # curr_isoform_id = None
-    curr_isoform_id = str(row["Transcript_ID"])
+    curr_isoform_id = str(row['Transcript_ID']) if row['Transcript_ID'] != "-" else None
 
     ##TEST::
-    print "&&&&&&&&row ", i, " & i_row = ", i_row, " || opt_param = ", opt_param
+    print "\tMK_TEST: &&&&&&&&&&&&&row ", i, " & i_row = ", i_row, " || opt_param = ", opt_param, " & nuc_orig = ", nuc_orig, " & alt = ", alt, " & genome_pos = ", genome_pos
 
 
     obj_sna = SimpleNeoepitopeAllV2( genome_pos, nuc_orig, alt, DIR_GENOME, strand, opt_param, build_hg38, curr_isoform_id )
@@ -619,8 +627,8 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
             take_request_break( i_counter, i, SEC_BREAK )
             continue
 
-    ##TEST:: print "row ", i, ": list_info = ", list_info
-    print "row ", i, " - genome_pos = ", genome_pos, " & alt = ", alt
+    # ##TEST:: print "row ", i, ": list_info = ", list_info
+    # print "SHOW row ", i, " - genome_pos = ", genome_pos, " & alt = ", alt
 
     #this is the genomic position information for the genomic alteration
     sample_id = row['Tumor_Sample_Barcode']
@@ -648,8 +656,9 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
 
     ##
     for i_iso, each_iso in enumerate(obj_sna.list_isoforms):        #each_iso = SimpleNeoepitopeIsoformV2 instance
-        print "mRNA: ----------", i_iso, "----------"
-        print "string = ", each_iso, " & len = ", len( each_iso.mRNA )
+        # ##TEST::
+        # print "mRNA: ----------", i_iso, "----------"
+        # print "string = ", each_iso, " & len = ", len( each_iso.mRNA )
 
         mrna_orig = each_iso.mRNA
         mrna_alt = each_iso.mRNA_alt
@@ -769,8 +778,8 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
         line_transcript+= str( num_potential_neoep_alt ) + "\t"      
         line_transcript+= str( potential_neoep_len ) + "\t"      
 
-        ##TEST::
-        print "row ", i, " - str_combine_codon = ", str_combine_codon, " --> row[Codons] = ", row["Codons"], " & HGVSc = ", each_iso.hgvsc, " && HGVSp ", each_iso.hgvsp
+        # ##TEST::
+        # print "row ", i, " - str_combine_codon = ", str_combine_codon, " --> row[Codons] = ", row["Codons"], " & HGVSc = ", each_iso.hgvsc, " && HGVSp ", each_iso.hgvsp
 
         #VERSION 2: comparing codons & amino acids to file's version 
         line_transcript+= str_combine_codon_vep + " | " + str(row["Codons"]) + "\t"
@@ -818,6 +827,11 @@ for i, (i_row, row) in enumerate( df_muts.iterrows() ):
 
         line = line_prepend + line_transcript + '\n'
         file_write.write( line )
+
+        ##TEST::
+        print "\tSHOW THIS!!! row ", i, " - each_iso = ", each_iso, " & line = ", line, "\n---------\n\n"
+
+
 
     update = mokhaPy.dataMeasure_rowsPeriodicUpdate( total_rows, i, update, 0.0001 )
 

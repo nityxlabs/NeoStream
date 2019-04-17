@@ -3,7 +3,9 @@
 from cruzdb import Genome
 
 arrTables_hg19 = ["refGene","knownGene","ensGene","ccdsKgMap","knownGeneMrna","kgProtAlias","knownToEnsembl","knownToRefSeq", "wgEncodeGencodeBasicV19"]
-#NOTE: ‘ensGene’ is not present in hg38
+#NOTE: "ensGene" is not present in hg38
+
+#NOTE: "ensGene"
 arrTables_hg38 = ["refGene","knownGene","ccdsKgMap","knownGeneMrna","kgProtAlias","knownToEnsembl","knownToRefSeq"]
 
 
